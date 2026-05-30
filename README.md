@@ -1,0 +1,1 @@
+# portalkelulusansmpnegeri1selemadeg
