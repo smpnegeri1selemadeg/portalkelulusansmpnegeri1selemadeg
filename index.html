@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan SMPN 1 Selemadeg 2025/2026</title>
+    <!-- Menggunakan font Google 'Inter' untuk desain modern dan profesional -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* --- CSS VARIABLES --- */
+        :root {
+            --primary-blue: #1e3a8a; /* Biru Tua */
+            --secondary-blue: #3b82f6; /* Biru Muda */
+            --light-blue: #eff6ff; /* Background Biru Sangat Muda */
+            --white: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --error: #ef4444;
+            --success: #10b981;
+            --border: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-blue);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* --- LAYOUT & CARDS --- */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* --- HEADER SECTION --- */
+        .header-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .header-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .header-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* --- FORM & INPUT --- */
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .input-field:focus {
+            border-color: var(--secondary-blue);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            gap: 8px;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #152c6b;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background-color: #f9fafb;
+        }
+
+        /* --- MESSAGES & LOADING --- */
+        .error-msg {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+            text-align: left;
+        }
+
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- RESULT SECTION --- */
+        #result-section {
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-header h3 {
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .student-info {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .info-label {
+            flex: 0 0 120px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .info-colon {
+            margin: 0 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-lulus {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 2px solid var(--success);
+        }
+
+        .status-tidak-lulus {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 2px solid var(--error);
+        }
+
+        /* --- ADMIN UPLOAD CARD --- */
+        .admin-setup-card {
+            background-color: #fffbeb;
+            border: 2px dashed #f59e0b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .admin-setup-card h4 {
+            color: #b45309;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            padding-top: 2rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
+            .info-row {
+                flex-direction: column;
+                margin-bottom: 1rem;
+            }
+            .info-label {
+                flex: none;
+                margin-bottom: 0.25rem;
+            }
+            .info-colon {
+                display: none;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            #search-section, footer, .action-buttons {
+                display: none !important;
+            }
+            #result-section {
+                display: block !important;
+            }
+            .card {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .status-badge {
+                border-width: 2px; /* Ensure border prints */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bagian Setup Data (Khusus Admin) -->
+        <div class="admin-setup-card" id="admin-setup">
+            <h4>⚙️ Muat Seluruh Data Siswa (Admin)</h4>
+            <p style="font-size: 0.85rem; color: #78350f; margin-bottom: 1rem;">Sistem saat ini baru memuat 8 data contoh. Agar portal dapat mencari ke-181 siswa, silakan pilih file <b>1Hasil_TKA_Terurut_SMPN1_Selemadeg.csv</b> milik Anda.</p>
+            <input type="file" id="csv-uploader" accept=".csv" style="font-size: 0.9rem;">
+            <p id="upload-status" style="margin-top: 10px; font-weight: bold; color: var(--success); display: none;"></p>
+        </div>
+
+        <!-- Bagian Pencarian -->
+        <div class="card" id="search-section">
+            <img src="https://iili.io/C3oxuRa.md.png" alt="Logo SMPN 1 Selemadeg" class="header-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3ciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjIgMTB2NlptMCAwYy0yLjUtMi01LjUtMy0xMC0zUzQuNSA4IDIgMTB2NmMwIDAgMi41LTMgMTAtM3MxMCAzIDEwIDNaIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPjwvc3ZnPg=='">
+            <h1 class="header-title">Portal Pengumuman Kelulusan<br>SMP Negeri 1 Selemadeg</h1>
+            <p class="header-desc">Tahun Ajaran 2025/2026</p>
+
+            <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Silakan masukkan Nomor Induk Siswa Nasional (NISN) untuk melihat hasil kelulusan.<br><span style="color: var(--success); font-weight: 600; font-size: 0.8rem;">Status: <span id="db-count-indicator">8</span> Data Siswa Aktif</span></p>
+
+            <div class="input-group">
+                <input type="text" id="nisn-input" class="input-field" placeholder="Masukkan 10 Digit NISN" maxlength="10" autocomplete="off">
+                <div id="error-msg" class="error-msg"></div>
+            </div>
+
+            <button class="btn btn-primary" onclick="cekKelulusan()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Cek Kelulusan
+            </button>
+        </div>
+
+        <!-- Bagian Loading -->
+        <div class="card loading-container" id="loading-section">
+            <div class="spinner"></div>
+            <p>Mencari data siswa...</p>
+        </div>
+
+        <!-- Bagian Hasil Pencarian -->
+        <div class="card" id="result-section">
+            <div class="result-header">
+                <h3>HASIL KELULUSAN</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Tahun Ajaran 2025/2026</p>
+            </div>
+
+            <div class="student-info">
+                <div class="info-row">
+                    <div class="info-label">Nama</div>
+                    <div class="info-colon">:</div>
+                    <div class="info-value" id="res-nama">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Tempat Lahir</div>
+                    <div class="info-colon">:</div>
+                    <div class="info-value" id="res-tempat">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Tanggal Lahir</div>
+                    <div class="info-colon">:</div>
+                    <div class="info-value" id="res-tanggal">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">NISN</div>
+                    <div class="info-colon">:</div>
+                    <div class="info-value" id="res-nisn">-</div>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <p style="font-weight: 600; color: var(--text-muted); margin-bottom: 10px;">STATUS :</p>
+                <div id="res-status" class="status-badge status-lulus">LULUS</div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-outline" onclick="resetPencarian()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    Kembali
+                </button>
+                <button class="btn btn-primary" onclick="cetakHasil()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Cetak Hasil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SMP Negeri 1 Selemadeg. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Data CSV langsung disematkan (Diambil dari file yang Anda unggah)
+        const rawCSVData = `DAFTAR KOLEKTIF HASIL TES KEMAMPUAN AKADEMIK SMP/MTS TAHUN 2026;;;;;;;;
+SMP NEGERI 1 SELEMADEG | NPSN: 50101153 | KAB. TABANAN - BALI;;;;;;;;
+Kepala Sekolah: Ni Wayan Sri Yasmini, S.Pd., M.Pd.;;;;;;;;
+;;;;;;;;
+Peringkat;No. Urut Asal;Nomor Peserta;NISN;Nama Peserta;Tempat, Tanggal Lahir;Matematika;Bahasa Indonesia;Total Nilai
+1;80;T2-26-22-08-0019-0080-9;0111739599;DEWA GEDE PRADNYANA PUTRA;Tabanan, 25 April 2011;63,33;96,67;160
+2;50;T2-26-22-08-0019-0050-7;0106463106;I MADE RESPA PUTRA WIJAYA;Tabanan, 16 Desember 2010;63,33;93,33;156,66
+3;32;T2-26-22-08-0019-0032-9;0104942199;NI PUTU CLARA RANIA PERMANA;Tabanan, 15 September 2010;63,33;90;153,33
+177;117;T2-26-22-08-0019-0117-4;0113512734;Kadek Aditya Pradnyana;Tabanan, 13 Agustus 2011;43,33;26,67;70
+178;47;T2-26-22-08-0019-0047-2;0112697116;I Putu Bagus Eka Jaya Hartawan;GIANYAR, 3 Januari 2011;40;26,67;66,67
+179;118;T2-26-22-08-0019-0118-3;0109173036;I Ketut Nova Artawan Putra;Tabanan, 28 November 2010;30;36,67;66,67
+180;2;T2-26-22-08-0019-0002-7;0112631079;Ni Kadek Sinta Saraswati;Cibukan, 31 Juli 2011;33,33;30;63,33
+181;142;T2-26-22-08-0019-0142-3;0103895827;Putu Agus Darma Arta Guna;Pekutatan, 18 Agustus 2010;23,33;36,67;60`;
+
+        // =========================================================================
+        // FUNGSI PEMBACA CSV OTOMATIS SUPER AMAN
+        // =========================================================================
+        function parseCSVToSiswa(csvString) {
+            const database = [];
+            const lines = csvString.split(/\r\n|\n|\r/);
+            let isDataRow = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                if (!line.trim()) continue;
+
+                // Deteksi pemisah (bisa ; atau ,)
+                let delimiter = ';';
+                if (line.includes(';') === false && line.includes(',')) {
+                    delimiter = ',';
+                }
+
+                let currentRow;
+                if (delimiter === ',') {
+                     // Pisahkan dengan koma tapi abaikan koma di dalam tanda kutip (seperti "Tabanan, 25 April")
+                     currentRow = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                } else {
+                     currentRow = line.split(';');
+                }
+
+                // Bersihkan karakter aneh dan kutipan
+                currentRow = currentRow.map(val => val ? val.replace(/^"|"$/g, '').replace(/\uFEFF/g, '').trim() : '');
+
+                // Header selalu ada kata "Peringkat" (Bypass masalah huruf besar/kecil dan karakter tersembunyi)
+                if (currentRow.length > 0 && currentRow[0].toLowerCase().includes('peringkat')) {
+                    isDataRow = true;
+                    continue; 
+                }
+
+                // Jika sudah di area data dan kolom NISN ada nilainya
+                if (isDataRow && currentRow.length >= 5 && currentRow[3]) {
+                    const nisn = currentRow[3].replace(/["']/g, '').trim();
+                    const nama = currentRow[4].replace(/["']/g, '').trim();
+
+                    let ttl = currentRow[5] || "";
+                    ttl = ttl.replace(/["']/g, ''); // bersihkan kutipan
+                    const ttlSplit = ttl.split(',');
+                    const tempat = ttlSplit[0] ? ttlSplit[0].trim() : "-";
+                    const tanggal = ttlSplit[1] ? ttlSplit[1].trim() : "-";
+
+                    // Tambahkan ke database jika NISN hanya berisi angka
+                    if (nisn !== '' && /^\d+$/.test(nisn)) {
+                        database.push({
+                            nisn: nisn,
+                            nama: nama,
+                            tempat: tempat,
+                            tanggal: tanggal,
+                            status: "LULUS" 
+                        });
+                    }
+                }
+            }
+            return database;
+        }
+
+        // Jalankan Parser dan masukkan ke database
+        let databaseSiswa = parseCSVToSiswa(rawCSVData);
+
+        // =========================================================================
+        // PENGATURAN UPLOAD FILE CSV OLEH ADMIN
+        // =========================================================================
+        document.getElementById('csv-uploader').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const content = event.target.result;
+                const parsedData = parseCSVToSiswa(content);
+                
+                if (parsedData.length > 0) {
+                    databaseSiswa = parsedData; // Timpa data lama dengan data baru yang lengkap
+                    document.getElementById('db-count-indicator').innerText = databaseSiswa.length;
+                    
+                    const statusEl = document.getElementById('upload-status');
+                    statusEl.innerText = "✅ Berhasil memuat " + databaseSiswa.length + " data siswa! Portal siap digunakan.";
+                    statusEl.style.display = 'block';
+                    
+                    // Sembunyikan pesan error pencarian sebelumnya jika ada
+                    hideError();
+                } else {
+                    alert("Gagal membaca data dari file CSV. Pastikan formatnya benar.");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Mencegah input selain angka
+        document.getElementById('nisn-input').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Memungkinkan pencarian dengan menekan tombol Enter
+        document.getElementById('nisn-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                cekKelulusan();
+            }
+        });
+
+        function showError(message) {
+            const errorElement = document.getElementById('error-msg');
+            errorElement.innerText = message;
+            errorElement.style.display = 'block';
+            document.getElementById('nisn-input').style.borderColor = 'var(--error)';
+        }
+
+        function hideError() {
+            document.getElementById('error-msg').style.display = 'none';
+            document.getElementById('nisn-input').style.borderColor = 'var(--border)';
+        }
+
+        function cekKelulusan() {
+            const nisnInput = document.getElementById('nisn-input').value.trim();
+            
+            hideError();
+            document.getElementById('error-msg').style.color = "var(--error)"; 
+            
+            if (nisnInput === '') {
+                showError('NISN tidak boleh kosong!');
+                return;
+            }
+            if (nisnInput.length !== 10) {
+                showError('NISN harus terdiri dari 10 digit angka!');
+                return;
+            }
+
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('loading-section').style.display = 'flex';
+
+            setTimeout(() => {
+                document.getElementById('loading-section').style.display = 'none';
+                
+                const siswaDitemukan = databaseSiswa.find(siswa => siswa.nisn === nisnInput);
+
+                if (siswaDitemukan) {
+                    tampilkanHasil(siswaDitemukan);
+                } else {
+                    document.getElementById('search-section').style.display = 'block';
+                    showError('Data siswa tidak ditemukan. Periksa kembali NISN yang dimasukkan.');
+                }
+            }, 800);
+        }
+
+        function tampilkanHasil(data) {
+            document.getElementById('res-nama').innerText = data.nama;
+            document.getElementById('res-tempat').innerText = data.tempat;
+            document.getElementById('res-tanggal').innerText = data.tanggal;
+            document.getElementById('res-nisn').innerText = data.nisn;
+
+            const statusEl = document.getElementById('res-status');
+            statusEl.innerText = data.status;
+            
+            if (data.status.toUpperCase() === 'LULUS') {
+                statusEl.className = 'status-badge status-lulus';
+            } else {
+                statusEl.className = 'status-badge status-tidak-lulus';
+            }
+
+            document.getElementById('result-section').style.display = 'block';
+        }
+
+        function resetPencarian() {
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('search-section').style.display = 'block';
+            document.getElementById('nisn-input').value = '';
+            hideError();
+            document.getElementById('nisn-input').focus();
+        }
+
+        function cetakHasil() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
